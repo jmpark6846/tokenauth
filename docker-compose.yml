@@ -1,0 +1,10 @@
+version: "3"
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - 8000:8000
