@@ -1,11 +1,12 @@
 FROM python:3.6
+ENV PYTHONUNBUFFERED 1
 
-
-COPY requirements.txt /app/
+RUN mkdir /app
 WORKDIR /app
-RUN pip install -r requirements.txt
+ADD requirements.txt /app/
 
-COPY . /app
+RUN pip install -r requirements.txt
+ADD . /app
 EXPOSE 8000
 CMD python manage.py runserver 0.0.0.0:8000
 
