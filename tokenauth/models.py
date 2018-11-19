@@ -16,8 +16,6 @@ class CustomPermission(models.Model):
         super(CustomPermission, self).save()
 
 
-
-
 class UserHasPermission(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='user_perms')
     permission = models.ForeignKey(CustomPermission, related_name='user_perms', on_delete=models.CASCADE)
