@@ -18,11 +18,8 @@ class IssueAuthToken(ObtainAuthToken):
             return Response({'success':False, 'message': '로그인에 실패했습니다. 아이디와 비밀번호를 확인하세요.'})
 
         user = serializer.validated_data['user']
-
-
         token, created = Token.objects.get_or_create(user=user)
-        print(token, created)
-        return Response({ 'success': True, 'message':'성공', 'token:':token.key })
+        return Response({ 'success': True, 'message':'성공', 'token:':token.key }, content_type='application/json')
 
 
 @api_view(['GET'])
@@ -31,4 +28,4 @@ def check_permission(request, permission_name):
         return Response({ 'success': False, 'message': 'permission_name이 필요합니다.'})
 
     result = has_permissions(request.user, permission_name)
-    return Response({ 'success':True, 'message':result, 'permission_name': permission_name})
+    return Response({ 'success':True, 'message':result, 'permission_name': permission_name}, content_type='application/json')

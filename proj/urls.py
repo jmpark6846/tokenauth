@@ -20,5 +20,5 @@ from tokenauth import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('token/', views.IssueAuthToken.as_view(), name='token'),
-    path('permission/<str:permission_name>/', views.check_permission, name='check')
+    path('permission/<str:permission_name>/', views.check_permission, name='check_permission')
 ]
