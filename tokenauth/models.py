@@ -7,6 +7,16 @@ class CustomPermission(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+
+        if self.parent and self.parent.parent:
+            raise Exception('{} 는 이미 부모 권한을 갖고 있습니다. '.format(self.parent))
+
+        super(CustomPermission, self).save()
+
+
+
 
 class UserHasPermission(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='user_perms')
