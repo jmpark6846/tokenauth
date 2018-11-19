@@ -12,18 +12,20 @@ class UserHasPermission(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='user_perms')
     permission = models.ForeignKey(CustomPermission, related_name='user_perms', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return '사용자 {} -> 권한 {}'.format(self.user, self.permission)
+
 
 def has_permissions(user, permission_name):
     # 권한 검사
     if user.user_perms.filter(permission__name=permission_name).count():
         return True
 
-    l = list(map(lambda x: x.permission, user.user_perms.all()))
-
-
-    # for up in user.user_perms.all():
-    #     if p.child_permissions and p.child_permissions.filter(name=permission_name).count():
-    #         return True
+    # 자식 검사
+    perm_list = list(map(lambda x: x.permission, user.user_perms.all()))
+    for p in perm_list:
+        if p.child_permissions and  p.child_permissions.filter(name=permission_name).count():
+            return True
 
     return False
 
