@@ -43,3 +43,11 @@ check_permission `/permission/<permission_name>`
 ## 기타
 - 이메일로 유저 인증을 하기 위한 이메일 인증 백엔드 추가 `tokenauth/backends.py`
 - 뷰 테스트 코드 추가
+
+
+## 개발환경
+- python 3.6.6
+- django 2.1.3
+- django rest framework 3.9.0
+- docker 18.06.1
+- docker-compose 1.23.1
